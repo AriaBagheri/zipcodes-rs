@@ -1,3 +1,5 @@
+mod compact;
+
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use std::io::prelude::*;
@@ -25,6 +27,8 @@ pub enum Error {
     InvalidFormat,
     #[error("Invalid characters, zipcode may only contain digits and \"-\".")]
     InvalidCharacters,
+    #[error("Zipcode not found in our database!")]
+    NotInDatabase,
 }
 
 /// A result type where the error is an `Error`.
@@ -48,7 +52,7 @@ pub fn is_real(zipcode: &str) -> Result<bool> {
     Ok(!matching_zipcodes.is_empty())
 }
 
-/// Using a supplied list of filt-er-functions, return a filtered list of zipcodes.
+/// Using a supplied list of filter-functions, return a filtered list of zipcodes.
 ///
 /// By default, the supplied list of zipcodes is everything stored in the
 /// database. However, an optional list of override zipcodes can be supplied.
