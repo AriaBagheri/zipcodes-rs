@@ -1,5 +1,5 @@
 mod compact;
-
+pub use compact::*;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use std::io::prelude::*;
